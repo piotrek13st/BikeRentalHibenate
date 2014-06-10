@@ -1,0 +1,41 @@
+22:31:15.211 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:31:15.222 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:31:15.233 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+22:31:15.252 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:31:15.260 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
+22:31:15.269 [AWT-EventQueue-0] INFO   Client Creating Institution:  id=0
+22:31:20.632 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 0 elements founded
+22:31:35.834 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:31:36.020 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=1 added
+22:31:56.580 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:31:56.627 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=2 added
+22:32:21.114 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:32:21.116 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=3 added
+22:32:39.602 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:33:33.746 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:33:33.747 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=4 added
+22:34:07.841 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:34:07.844 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=5 added
+22:35:50.945 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:35:50.947 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=6 added
+22:35:54.312 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 0 elements founded
+22:36:19.817 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+22:36:19.819 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=7 added
+22:36:39.441 [AWT-EventQueue-0] INFO   Client Creating Institution:  id=0
+22:36:39.443 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=8 added
+22:36:45.592 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 0 elements founded
+22:36:53.142 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+22:36:53.180 [AWT-EventQueue-0] INFO   Client Creating Institution:  id=0
+22:36:53.182 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 2 elements founded
+22:36:55.779 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+22:37:10.122 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:10.125 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:10.126 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:10.126 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:10.126 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:10.127 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:10.165 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 6 elements founded
+22:37:21.484 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:26.808 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+22:37:38.762 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
+22:37:38.770 [AWT-EventQueue-0] DEBUG  logic.RecordManager addRecord(): record with id=9 added
