@@ -39,6 +39,15 @@ public class BikeTableModel extends DefaultTableModel {
 		
 	}
 	
+	/**
+	 * Create a table model which consists records which has no reservations between from  - to Dates
+	 * @param manager
+	 * @param bikeClass		type of bikes in that table should consist of, null == all bike classes
+	 * @param isFunctional	if true then table consists only functional bikes
+	 * @param from			
+	 * @param to
+	 * @throws RecordNotFoundException
+	 */
 	public BikeTableModel(BikeDBManager manager, Class<? extends Bike> bikeClass, Boolean isFunctional,
 				Date from, Date to) throws RecordNotFoundException  {
 		super(new String[] {"Id", "Type", "Wheel Diameter" , "Model"}, 0);
@@ -57,7 +66,7 @@ public class BikeTableModel extends DefaultTableModel {
 
 	    if(from != null && to != null)
 		for(Bike it: lb) {
-				if(it.isAvailable(from, to))
+				if(it.isFunctional() && it.isAvailable(from, to))
 					addRow(new Object[]{it.getId(), it.getClass().getSimpleName(), it.getWheelDiameter(), 
 						( (it instanceof MTBike) ? ((MTBike)it).getMtbModel() :"---")} );
 		}

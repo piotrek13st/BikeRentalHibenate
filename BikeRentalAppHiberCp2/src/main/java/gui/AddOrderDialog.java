@@ -45,19 +45,16 @@ import java.util.Calendar;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-
-
 public class AddOrderDialog extends JDialog implements ActionListener {
-		
+
 	private boolean okPressed;
 	private JButton btnConfirm;
 	private JButton btnCancel;
-	
+
 	private Client client;
 	private List<Thing> thingList;
-	
-	ClientManagerDialog clientDialog=null;
-	
+
+	ClientManagerDialog clientDialog = null;
 
 	private JPanel panel;
 	private JLabel lblClient;
@@ -77,36 +74,31 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 	private JTextField textNumOfBikes;
 	private JButton btnAddBike;
 	private JButton btnCalculate;
-	
-	private SessionFactory factory; 
+
+	private SessionFactory factory;
 	private JSpinner spinnerFromDate;
 	private JSpinner spinnerToDate;
 	private JSpinner spinnerMadedDate;
 	private JComboBox cboxBikeTypes;
+
 	/**
 	 * Create the dialog.
 	 */
 	public AddOrderDialog(JDialog parent, SessionFactory factory) {
-		super(parent,true);
-		this.factory=factory;
+		super(parent, true);
+		this.factory = factory;
 		setResizable(false);
 		initComponents();
 		createEvents();
-		
-	}
-	
-	
-	
 
-	
-	
+	}
+
 	private void initComponents() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
+
 		setBounds(100, 100, 296, 364);
 		getContentPane().setLayout(new BorderLayout());
-		
-		
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -114,7 +106,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			{
 				btnConfirm = new JButton("Confirm");
 				buttonPane.add(btnConfirm);
-				
+
 			}
 			{
 				btnCancel = new JButton("Cancel");
@@ -132,8 +124,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 					FormFactory.RELATED_GAP_COLSPEC,
 					FormFactory.DEFAULT_COLSPEC,
 					FormFactory.RELATED_GAP_COLSPEC,
-					ColumnSpec.decode("default:grow"),},
-				new RowSpec[] {
+					ColumnSpec.decode("default:grow"), }, new RowSpec[] {
 					FormFactory.RELATED_GAP_ROWSPEC,
 					FormFactory.DEFAULT_ROWSPEC,
 					FormFactory.RELATED_GAP_ROWSPEC,
@@ -155,7 +146,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 					FormFactory.RELATED_GAP_ROWSPEC,
 					FormFactory.DEFAULT_ROWSPEC,
 					FormFactory.RELATED_GAP_ROWSPEC,
-					FormFactory.DEFAULT_ROWSPEC,}));
+					FormFactory.DEFAULT_ROWSPEC, }));
 			{
 				lblClient = new JLabel("Client");
 				lblClient.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -163,7 +154,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			}
 			{
 				textClient = new JTextField();
-				
+
 				panel.add(textClient, "5, 2, 4, 1, fill, default");
 				textClient.setColumns(10);
 				textClient.setFocusable(false);
@@ -184,11 +175,8 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 				panel.add(lblStatus, "2, 6");
 			}
 			{
-				cboxStatus = new JComboBox(new String[]{"CREATING ORDER",
-						"CONFIRMED",
-						"CANCELED",
-						"IN REALISATION",
-						"ENDED"});
+				cboxStatus = new JComboBox(new String[] { "CREATING ORDER",
+						"CONFIRMED", "CANCELED", "IN REALISATION", "ENDED" });
 				panel.add(cboxStatus, "5, 6, 4, 1, fill, default");
 			}
 			{
@@ -208,7 +196,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			}
 			{
 				spinnerToDate = new JSpinner();
-				
+
 				panel.add(spinnerToDate, "5, 10, 4, 1");
 			}
 			{
@@ -223,7 +211,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 				textNumOfBikes.setEditable(false);
 			}
 			{
-				lblPrizehour = new JLabel("Price/hour");
+				lblPrizehour = new JLabel("Price/day");
 				lblPrizehour.setFont(new Font("Tahoma", Font.BOLD, 12));
 				panel.add(lblPrizehour, "2, 14");
 			}
@@ -261,17 +249,18 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 				panel.add(btnAddBike, "2, 20, 3, 1");
 			}
 			{
-				cboxBikeTypes = new JComboBox(new String[]{"All", "Traditional", "Mountain", "MTBike"});
+				cboxBikeTypes = new JComboBox(new String[] { "All",
+						"Traditional", "Mountain", "MTBike" });
 				panel.add(cboxBikeTypes, "5, 20, 4, 1, fill, default");
 			}
 			{
 				btnCalculate = new JButton("Calculate");
 				panel.add(btnCalculate, "2, 22, 3, 1");
 			}
-			
+
 		}
 	}
-	
+
 	private void createEvents() {
 		btnConfirm.addActionListener(this);
 		btnCancel.addActionListener(this);
@@ -281,143 +270,165 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 		textClient.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ClientManagerDialog x = new ClientManagerDialog(AddOrderDialog.this, factory);
-				client=x.showDialogForClient();
-				
-				if(client!=null) {
+				ClientManagerDialog x = new ClientManagerDialog(
+						AddOrderDialog.this, factory);
+				client = x.showDialogForClient();
+
+				if (client != null) {
 					textClient.setText(client.getClientName());
 				}
-			
+
 			}
 		});
-		
+
 		spinnerToDate.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				Long time=(((Date)spinnerToDate.getValue()).getTime()-((Date)spinnerFromDate.getValue()).getTime())/1000/60;
-				textTotalTime.setText(""+ time/60 + "h " +time%60 +"min");
+				Long time = (((Date) spinnerToDate.getValue()).getTime() - ((Date) spinnerFromDate
+						.getValue()).getTime()) / 1000 / 60;
+				textTotalTime
+						.setText("" + time / 60 + "h " + time % 60 + "min");
+				showCalculation();
 			}
 		});
-		
+
 		spinnerFromDate.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				Long time=(((Date)spinnerToDate.getValue()).getTime()-((Date)spinnerFromDate.getValue()).getTime())/1000/60+1;
-				textTotalTime.setText(""+ time/60 + "h " +time%60 +"min");
+				Long time = (((Date) spinnerToDate.getValue()).getTime() - ((Date) spinnerFromDate
+						.getValue()).getTime()) / 1000 / 60;
+				textTotalTime
+						.setText("" + time / 60 + "h " + time % 60 + "min");
+				showCalculation();
 			}
 		});
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		
-		    if (source == btnConfirm) {
-		      okPressed = true;
-		      setVisible(false);
-		    } else if (source == btnCancel){
-		    	setVisible(false);
-		    } else if (source == cboxStatus || source==btnCalculate){
-		    	showCalculation();
-		    } else if (source == btnAddBike) {
-		    	BikeManagerDialog bikeDialog = new BikeManagerDialog(this, factory);
-		    	thingList.addAll(bikeDialog.showDialogForBikes(cboxBikeTypes.getSelectedIndex(), 
-		    			(Date)spinnerFromDate.getValue(), (Date)spinnerToDate.getValue()));
-		    	textNumOfBikes.setText(""+thingList.size());
-		    	
-		    } else if(source == spinnerFromDate || source== spinnerToDate) {
-		    	textTotalTime.setText(""+(((Date)spinnerToDate.getValue()).getTime()-((Date)spinnerFromDate.getValue()).getTime()));
-		    }
-		    
-		    
+
+		if (source == btnConfirm) {
+			okPressed = true;
+			setVisible(false);
+		} else if (source == btnCancel) {
+			setVisible(false);
+		} else if (source == cboxStatus || source == btnCalculate) {
+			showCalculation();
+		} else if (source == btnAddBike) {
+			BikeManagerDialog bikeDialog = new BikeManagerDialog(this, factory);
+			thingList.addAll(bikeDialog.showDialogForBikes(
+					cboxBikeTypes.getSelectedIndex(),
+					(Date) spinnerFromDate.getValue(),
+					(Date) spinnerToDate.getValue()));
+			textNumOfBikes.setText("" + thingList.size());
+			showCalculation();
+
+		}
+
 	}
-		    
-		      
+
 	public Order showDialog(Order con) {
-		thingList=null;
-		client=null;
-		
-		if(con!=null) {
-			
+		thingList = null;
+		client = null;
+
+		if (con != null) {
+
 			textClient.setText(con.getClient().getClientName());
-			
-			Date d1=con.getDatePair().getStartAtDate();
-			Date d2=con.getDatePair().getEndAtDate();
-			
-			spinnerMadedDate.setModel(new SpinnerDateModel(con.getMadedOrderDate(),null,null, Calendar.ALL_STYLES));
-			spinnerFromDate.setModel(new SpinnerDateModel(d1, null, null, Calendar.ALL_STYLES));
-			spinnerToDate.setModel(new SpinnerDateModel(d2, null, null, Calendar.ALL_STYLES));
-		
-			
-			Status status=con.getStatus();
-			if(status==Status.CREATING_ORDER) {
+
+			Date d1 = con.getDatePair().getStartAtDate();
+			Date d2 = con.getDatePair().getEndAtDate();
+
+			spinnerMadedDate.setModel(new SpinnerDateModel(con
+					.getMadedOrderDate(), null, null, Calendar.ALL_STYLES));
+			spinnerFromDate.setModel(new SpinnerDateModel(d1, null, null,
+					Calendar.ALL_STYLES));
+			spinnerToDate.setModel(new SpinnerDateModel(d2, null, null,
+					Calendar.ALL_STYLES));
+			textTotalTime.setText("" + (d2.getTime() - d1.getTime()) / 1000
+					/ 60 / 60 + "h "
+					+ ((d2.getTime() - d1.getTime()) / 1000 / 60) % 60 + "min");
+
+			Status status = con.getStatus();
+			if (status == Status.CREATING_ORDER) {
 				cboxStatus.setSelectedIndex(0);
-			} else if (status==Status.CONFIRMED) {
+			} else if (status == Status.CONFIRMED) {
 				cboxStatus.setSelectedIndex(1);
-			} else if (status==Status.CANCELED) {
-				cboxStatus.setSelectedIndex(2); 
-			} else if (status==Status.IN_REALISATION) {
+			} else if (status == Status.CANCELED) {
+				cboxStatus.setSelectedIndex(2);
+			} else if (status == Status.IN_REALISATION) {
 				cboxStatus.setSelectedIndex(3);
-			} else if (status==Status.ENDED) {
+			} else if (status == Status.ENDED) {
 				cboxStatus.setSelectedIndex(4);
 			}
-			
-			
-			textPrice.setText(""+con.calculatePrice());
-			
-			textTotalTime.setText((d2.getTime()-d1.getTime())/1000+ " h");
-			thingList=con.getThingList();
-			if(thingList!=null)
-				textNumOfBikes.setText(""+thingList.size());
-			else 
+
+			// textPrice.setText(""+con.calculatePrice());
+
+			textTotalTime.setText((d2.getTime() - d1.getTime()) / 1000 + " h");
+			thingList = con.getThingList();
+			if (thingList != null)
+				textNumOfBikes.setText("" + thingList.size());
+			else
 				textNumOfBikes.setText("0");
-			
-			client=con.getClient();
-		} else{
-			thingList=new LinkedList<>();
-			spinnerToDate.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.ALL_STYLES));
-			spinnerFromDate.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.ALL_STYLES));
-			spinnerMadedDate.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.ALL_STYLES));
-			
+
+			client = con.getClient();
+		} else {
+			thingList = new LinkedList<>();
+			spinnerToDate.setModel(new SpinnerDateModel(new Date(new Date()
+					.getTime() + 3600000L), null, null, Calendar.ALL_STYLES));
+			spinnerFromDate.setModel(new SpinnerDateModel(new Date(), null,
+					null, Calendar.ALL_STYLES));
+			spinnerMadedDate.setModel(new SpinnerDateModel(new Date(), null,
+					null, Calendar.ALL_STYLES));
+			textTotalTime.setText("1h");
 		}
-	    okPressed = false;
-	    setVisible(true);
-	    if (okPressed) {
-	    	Order ord=new Order();
-	    	
-	    	ord.setClient(client);
-	    	ord.setMadedOrderDate((Date)spinnerMadedDate.getValue());
-	    	DatePair dp=null;
-	    	try {
-				dp=new DatePair((Date)spinnerFromDate.getValue(), (Date)spinnerToDate.getValue() ) ;
+		okPressed = false;
+		setVisible(true);
+		if (okPressed) {
+			Order ord = new Order();
+
+			ord.setClient(client);
+			ord.setMadedOrderDate((Date) spinnerMadedDate.getValue());
+			DatePair dp = null;
+			try {
+				dp = new DatePair((Date) spinnerFromDate.getValue(),
+						(Date) spinnerToDate.getValue());
 			} catch (EndBeforStartException e) {
 				e.printStackTrace();
 			}
-	    	ord.setDatePair(dp);
-	    	ord.setPrice(0f);
-	    	//ord.setPrice(Float.parseFloat(textTotalPrice.getText()));
-	    	
-	    	int index=cboxStatus.getSelectedIndex();
-	    	if(index==0) {
-	    		ord.setStatus(Status.CREATING_ORDER);
-	    	} else if (index==1) {
-	    		ord.setStatus(Status.CONFIRMED);
-	    	} else if (index==2) {
-	    		ord.setStatus(Status.CANCELED);
-	    	} else if (index==3) {
-	    		ord.setStatus(Status.IN_REALISATION);
-	    	} else if (index==4) {
-	    		ord.setStatus(Status.ENDED);
-	    	}
-	    	if(thingList!=null) {
-	    		ord.setThingList(thingList);
-	    	}
-	    	return ord;
-	    	
-	    }
-	    return null;
+			ord.setDatePair(dp);
+			ord.setPrice(0f);
+			// ord.setPrice(Float.parseFloat(textTotalPrice.getText()));
+
+			int index = cboxStatus.getSelectedIndex();
+			if (index == 0 || index == 1) {
+				ord.setStatus(Status.CONFIRMED);
+			} else if (index == 2) {
+				ord.setStatus(Status.CANCELED);
+			} else if (index == 3) {
+				ord.setStatus(Status.IN_REALISATION);
+			} else if (index == 4) {
+				ord.setStatus(Status.ENDED);
+			}
+			if (thingList != null) {
+				ord.setThingList(thingList);
+			}
+			return ord;
+
+		}
+		return null;
 	}
-	
+
 	private void showCalculation() {
-		
+		float suma = 0;
+		if (isVisible() == true) {
+			for (Thing it : thingList) {
+				suma += it.getDailyRentalPrice();
+			}
+			long time = ((Date) spinnerToDate.getValue()).getTime()
+					- ((Date) spinnerFromDate.getValue()).getTime();
+			textTotalPrice.setText(String.format("%.2f zl", (suma * time) / 24
+					/ 60 / 60 / 1000));
+			textPrice.setText("" + suma);
+		}
 	}
 }
