@@ -147,8 +147,8 @@ public class OrderManagerDialog extends JDialog {
 						}
 				
 					
-					
-						AddOrderDialog addDialog = new AddOrderDialog(frame, factory);
+						
+						AddOrderDialog	addDialog = new AddOrderDialog(frame, factory);
 				
 						
 						con=addDialog.showDialog(con);

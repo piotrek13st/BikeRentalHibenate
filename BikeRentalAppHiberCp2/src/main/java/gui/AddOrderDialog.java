@@ -317,8 +317,11 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			setVisible(false);
 		} else if (source == btnCancel) {
 			setVisible(false);
-		} else if (source == cboxStatus || source == btnCalculate) {
+		} else if (source == btnCalculate) {
 			showCalculation2();
+		} else if (source == cboxBikeTypes) {
+			if(isVisible()) 
+				showCalculation2();
 		} else if (source == btnAddBike) {
 			BikeManagerDialog bikeDialog = new BikeManagerDialog(this, factory);
 			thingList.addAll(bikeDialog.showDialogForBikes(
@@ -380,6 +383,9 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			
 			
 		} else {
+			textClient.setText("");
+			textPrice.setText("0");
+			textNumOfBikes.setText("0");
 			cboxStatus.setEnabled(false);
 			thingList = new LinkedList<>();
 			spinnerToDate.setModel(new SpinnerDateModel(new Date(new Date()

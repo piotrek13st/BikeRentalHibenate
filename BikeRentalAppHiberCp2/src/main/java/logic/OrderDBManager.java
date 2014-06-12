@@ -137,6 +137,13 @@ public class OrderDBManager extends DBManager<Order> {
 	         tx = session.beginTransaction();
 	         Order order = 
 	                   (Order)session.get(Order.class, id); 
+	         			for(Thing t:order.getThingList()) {
+	         				t.releaseReservation(order.getDatePair());
+	         				session.update(t);
+	         			}
+	         			
+	         		    order.setThingList(null);
+	         		    session.update(order);
 	         session.delete(order); 
 	         tx.commit();
 	      }catch (HibernateException e) {
