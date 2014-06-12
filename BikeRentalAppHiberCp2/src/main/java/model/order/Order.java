@@ -12,6 +12,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -47,7 +48,7 @@ public class Order implements Comparable<Order>, Idenifiable, Serializable {
 	private Client client;
 	
 
-	@ManyToMany(cascade={CascadeType.ALL})
+	@ManyToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	@JoinTable(
 			name="order_thing",
 			joinColumns = @JoinColumn ( name="order_id"),

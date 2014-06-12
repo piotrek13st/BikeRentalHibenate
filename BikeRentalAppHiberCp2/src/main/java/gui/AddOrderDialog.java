@@ -237,6 +237,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			}
 			{
 				textTotalPrice = new JTextField();
+				textTotalPrice.setEditable(false);
 				textTotalPrice.setColumns(10);
 				panel.add(textTotalPrice, "5, 18, 4, 1, fill, default");
 			}
@@ -265,7 +266,11 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 		btnConfirm.addActionListener(this);
 		btnCancel.addActionListener(this);
 		btnAddBike.addActionListener(this);
+		btnCalculate.addActionListener(this);
+		textPrice.addActionListener(this);
+		
 		cboxStatus.addActionListener(this);
+		
 
 		textClient.addMouseListener(new MouseAdapter() {
 			@Override
@@ -284,20 +289,20 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 		spinnerToDate.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				Long time = (((Date) spinnerToDate.getValue()).getTime() - ((Date) spinnerFromDate
-						.getValue()).getTime()) / 1000 / 60;
+						.getValue()).getTime()) / 1000 / 60+1;
 				textTotalTime
 						.setText("" + time / 60 + "h " + time % 60 + "min");
-				showCalculation();
+				showCalculation2();
 			}
 		});
 
 		spinnerFromDate.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				Long time = (((Date) spinnerToDate.getValue()).getTime() - ((Date) spinnerFromDate
-						.getValue()).getTime()) / 1000 / 60;
+						.getValue()).getTime()) / 1000 / 60+1;
 				textTotalTime
 						.setText("" + time / 60 + "h " + time % 60 + "min");
-				showCalculation();
+				showCalculation2();
 			}
 		});
 
@@ -313,7 +318,7 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 		} else if (source == btnCancel) {
 			setVisible(false);
 		} else if (source == cboxStatus || source == btnCalculate) {
-			showCalculation();
+			showCalculation2();
 		} else if (source == btnAddBike) {
 			BikeManagerDialog bikeDialog = new BikeManagerDialog(this, factory);
 			thingList.addAll(bikeDialog.showDialogForBikes(
@@ -323,6 +328,8 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			textNumOfBikes.setText("" + thingList.size());
 			showCalculation();
 
+		}  else if (source == textPrice) {
+			showCalculation2();
 		}
 
 	}
@@ -344,10 +351,17 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 					Calendar.ALL_STYLES));
 			spinnerToDate.setModel(new SpinnerDateModel(d2, null, null,
 					Calendar.ALL_STYLES));
-			textTotalTime.setText("" + (d2.getTime() - d1.getTime()) / 1000
-					/ 60 / 60 + "h "
-					+ ((d2.getTime() - d1.getTime()) / 1000 / 60) % 60 + "min");
+			
+			long t_diff=d2.getTime() - d1.getTime();
+			textTotalTime.setText((t_diff / 1000/60+1)/60 + "h " +(t_diff /1000/60+1)%60 + "min");
+			thingList = con.getThingList();
+			if (thingList != null)
+				textNumOfBikes.setText("" + thingList.size());
+			else
+				textNumOfBikes.setText("0");
 
+			client = con.getClient();
+			
 			Status status = con.getStatus();
 			if (status == Status.CREATING_ORDER) {
 				cboxStatus.setSelectedIndex(0);
@@ -360,18 +374,13 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 			} else if (status == Status.ENDED) {
 				cboxStatus.setSelectedIndex(4);
 			}
-
+			cboxStatus.setEnabled(true);
 			// textPrice.setText(""+con.calculatePrice());
 
-			textTotalTime.setText((d2.getTime() - d1.getTime()) / 1000 + " h");
-			thingList = con.getThingList();
-			if (thingList != null)
-				textNumOfBikes.setText("" + thingList.size());
-			else
-				textNumOfBikes.setText("0");
-
-			client = con.getClient();
+			
+			
 		} else {
+			cboxStatus.setEnabled(false);
 			thingList = new LinkedList<>();
 			spinnerToDate.setModel(new SpinnerDateModel(new Date(new Date()
 					.getTime() + 3600000L), null, null, Calendar.ALL_STYLES));
@@ -417,18 +426,36 @@ public class AddOrderDialog extends JDialog implements ActionListener {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * calculation based on real data
+	 */
 	private void showCalculation() {
 		float suma = 0;
-		if (isVisible() == true) {
+		
 			for (Thing it : thingList) {
 				suma += it.getDailyRentalPrice();
 			}
 			long time = ((Date) spinnerToDate.getValue()).getTime()
 					- ((Date) spinnerFromDate.getValue()).getTime();
-			textTotalPrice.setText(String.format("%.2f zl", (suma * time) / 24
-					/ 60 / 60 / 1000));
+			textTotalPrice.setText(String.format("%.2f zl", (suma * time / 24
+					/ 60 / 60 / 1000)));
 			textPrice.setText("" + suma);
-		}
+		
+	}
+	
+	/**
+	 * calculation based on text field
+	 */
+	private void showCalculation2() {
+		float suma = 0;
+		
+			suma = Float.parseFloat(textPrice.getText());
+			long time = ((Date) spinnerToDate.getValue()).getTime()
+					- ((Date) spinnerFromDate.getValue()).getTime();
+			textTotalPrice.setText(String.format("%.2f zl", (suma * time / 24
+					/ 60 / 60 / 1000)));
+			textPrice.setText("" + suma);
+			
 	}
 }

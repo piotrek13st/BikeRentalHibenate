@@ -1,11 +1,10 @@
-00:29:58.807 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
-00:29:58.820 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
-00:29:58.832 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
-00:29:58.846 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
-00:29:58.855 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
-00:29:58.865 [AWT-EventQueue-0] INFO   Client Creating Institution:  id=0
-00:30:03.440 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
-00:30:03.465 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
-00:30:03.498 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 1 elements founded
-00:30:05.460 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
-00:30:05.461 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+01:16:21.801 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+01:16:21.813 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+01:16:21.824 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+01:16:21.839 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+01:16:21.847 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
+01:16:21.856 [AWT-EventQueue-0] INFO   Client Creating Institution:  id=0
+01:16:23.628 [AWT-EventQueue-0] INFO   model.client.Client Creating order: id=0
+01:16:23.648 [AWT-EventQueue-0] INFO   Client Creating Person:  id=0
+01:16:23.673 [AWT-EventQueue-0] INFO   model.thing.Thing Creating Thing: id=0
+01:16:23.695 [AWT-EventQueue-0] DEBUG  logic.RecordManager getRecords(): 1 elements founded
